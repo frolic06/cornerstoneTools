@@ -8,6 +8,7 @@ import FreehandRoiTool from './FreehandRoiTool.js';
 import LengthTool from './LengthTool.js';
 import ProbeTool from './ProbeTool.js';
 import RectangleRoiTool from './RectangleRoiTool.js';
+import KeypointRoiTool from './KeypointRoiTool.js';
 import TextMarkerTool from './TextMarkerTool.js';
 
 // Named Exports
@@ -21,6 +22,7 @@ export { default as FreehandRoiTool } from './FreehandRoiTool.js';
 export { default as LengthTool } from './LengthTool.js';
 export { default as ProbeTool } from './ProbeTool.js';
 export { default as RectangleRoiTool } from './RectangleRoiTool.js';
+export { default as KeypointRoiTool } from './KeypointRoiTool.js';
 export { default as TextMarkerTool } from './TextMarkerTool.js';
 
 // Namespace, default export
@@ -35,5 +37,6 @@ export default {
   LengthTool,
   ProbeTool,
   RectangleRoiTool,
+  KeypointRoiTool,
   TextMarkerTool,
 };
