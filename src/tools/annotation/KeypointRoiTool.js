@@ -142,28 +142,31 @@ export default class KeypointRoiTool extends BaseAnnotationTool {
       if (data.visible === false) {
         continue;
       }
-      // If not on the correct slice, do not draw
-      if (
-        data.id &&
-        data.sliceIdx !== renderingElementStack.currentImageIdIndex
-      ) {
+
+      const displayOnlyOneRoi = Boolean(renderingElementStack.roiId);
+
+      if (displayOnlyOneRoi && data.id !== renderingElementStack.roiId) {
         continue;
       }
 
-      draw(context, this.drawKeypointRoi(data, element, eventData));
+      draw(
+        context,
+        this.drawKeypointRoi(data, element, eventData, displayOnlyOneRoi)
+      );
     }
   }
 
-  drawKeypointRoi(roi, element, eventData) {
+  drawKeypointRoi(roi, element, eventData, displayOnlyOneRoi) {
     return context => {
       const isNewMeasure = !roi.id;
       // Check which color the rendered tool should be
-      const selected = isNewMeasure || roi.selected || roi.hovered;
+      const selected =
+        isNewMeasure || roi.selected || roi.hovered || displayOnlyOneRoi;
       const color = selected ? '#ff00e0' : '#FF55E0';
 
       let options = { color };
 
-      if (isNewMeasure || roi.hovered) {
+      if ((isNewMeasure || roi.hovered) && !displayOnlyOneRoi) {
         options = {
           color,
           lineDash: [4],
@@ -202,7 +205,7 @@ export default class KeypointRoiTool extends BaseAnnotationTool {
         drawHandles(context, eventData, roi.handles, handleOptions);
       }
 
-      const text = isNewMeasure ? [] : [`ROI #${roi.id}`];
+      const text = isNewMeasure || displayOnlyOneRoi ? [] : [`ROI #${roi.id}`];
 
       // If the textbox has not been moved by the user, it should be displayed on the right-most
       // Side of the tool.
