@@ -148,6 +148,13 @@ export default class KeypointRoiTool extends BaseAnnotationTool {
       if (displayOnlyOneRoi && data.id !== renderingElementStack.roiId) {
         continue;
       }
+      if (
+        data.roiSessionId &&
+        renderingElementStack.roiSessionId &&
+        renderingElementStack.roiSessionId !== data.roiSessionId
+      ) {
+        continue;
+      }
 
       draw(
         context,
